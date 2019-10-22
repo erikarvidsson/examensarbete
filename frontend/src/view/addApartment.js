@@ -23,7 +23,7 @@ const AddApatment = () => {
 
     console.log(data)
 
-    axios.post('http://localhost:5000/data/add', data)
+    axios.post('http://localhost:5000/data/add', data, { credentials: 'include' })
       .then(res => console.log(res.data));
   }
 

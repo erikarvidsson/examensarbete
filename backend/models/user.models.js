@@ -9,7 +9,8 @@ const userSchema = new Schema({
     unique: true,
     trin: true,
     minlength: 3
-  },  
+  },
+  password: { type: String, required: true, minlength: 3 }  
 },{
   timestamps: true,
 });

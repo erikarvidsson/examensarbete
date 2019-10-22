@@ -8,8 +8,15 @@ const UpdateUser = () => {
 
   // const user = {
   //   usernme: username,
-  //   date: date
+  //   password: password
   // }
+
+  // let axiosConfig = {
+  //   headers: {
+  //     'Content-Type': 'application/json;charset=UTF-8',
+  //     "Access-Control-Allow-Origin": "*",
+  //   }
+  // };
 
   const onNewUser = (e) => {
     e.preventDefault();
@@ -17,16 +24,25 @@ const UpdateUser = () => {
       username: username,
       password: password
     }
+    // console.log(message.info)
+    // console.log(user)
+    // axios.post(`http://localhost:5000/userLogin/login/${username}`, user)
+    //   .then(res => console.log(res))
 
-    console.log(user)
-
-    axios.post('http://localhost:5000/users/add', user, { credentials: 'include'})
-      .then(res => console.log(res.data));
+    axios.post('http://localhost:5000/userLogin/login', user)
+      .then(res => {
+        console.log(res.data)
+        if(res.data){
+          return console.log('sucessful signin')
+        }else {
+          return console.log('sigin not woriking')
+        }
+      });
   }
 
   return (
     <>
-      <h1>Hello {username}</h1>
+      <h1>Login Page </h1>
       <form>
         <label>Name</label>
         <br />
@@ -37,7 +53,7 @@ const UpdateUser = () => {
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <br />
         <br />
-        <div type="submit" onClick={e => onNewUser(e)}>Submit</div>
+        <div type="submit" onClick={e => onNewUser(e)}>Login</div>
       </form>
     </>
   );
