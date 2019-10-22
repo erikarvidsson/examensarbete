@@ -44,6 +44,7 @@ router
       console.log(req.user);
       res.send(req.user);
       res.render("/");
+      
     }
   );
 
