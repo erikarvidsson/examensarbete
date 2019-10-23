@@ -14,7 +14,7 @@ function App() {
       <Route path="/" exact component={Index} />
       <Route path="/update" exact component={UpdateUser} />
       <Route path="/newApartment" exact component={AddApatment} />
-      <Route path="/userLogin" exact component={UserLogin} />
+      <Route path="/login" exact component={UserLogin} />
     </Router>
   );
 }
