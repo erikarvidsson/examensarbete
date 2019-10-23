@@ -1,21 +1,39 @@
 const router = require("express").Router();
-// const express = require('express');
 let User = require("../models/user.models");
+const jwt = require("jsonwebtoken");
+// const exjwt = require("express-jwt");
 
 const passport = require("passport");
 const session = require("express-session");
-var jwt = require("jsonwebtoken");
+const flash = require("express-flash");
 
 require("../passport.config")(passport);
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+// const jwtMW = exjwt({
+//   secret: process.env.SESSION_SECRET
+// });
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findOne({ _id: id })
+    .then(function(user) {
+      done(null, user);
+    })
+    .catch(function(err) {
+      done(err, null);
+    });
+});
 
 router.use(
   session({
     secret: process.env.SESSION_SECRET,
+    
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    passReqToCallback: true
   })
 );
 router.use(passport.initialize());
@@ -35,18 +53,29 @@ router.route("/").get((req, res) => {
 });
 
 // // Endpoint to login
-router
-  .route("/login")
-  .post(
-    passport.authenticate("local"),
-    passport.authenticate("local"),
-    function(req, res) {
-      console.log(req.user);
-      res.send(req.user);
-      res.render("/");
-      
+router.route("/login").post(passport.authenticate("local"), function(req, res) {
+  // console.log(req.user._id);
+  const user = req.user
+  // res.send(user)
+  // res.render("/login");
+  // res.cookie({user});
+  jwt.sign(
+    {user},
+    process.env.SESSION_SECRET,
+    {
+    algorithm: 'HS256',
+    expiresIn: 30000
+  },
+    (err, token) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Token - " + token)
+      res.cookie('token',token);
+      res.send()
     }
   );
+});
 
 // Endpoint to get current user
 router.get("/user", function(req, res) {
