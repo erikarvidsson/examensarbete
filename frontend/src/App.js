@@ -6,6 +6,7 @@ import NavBar from "./view/navBar";
 import UpdateUser from "./view/updateUser";
 import AddApatment from "./view/addApartment";
 import UserLogin from "./view/userLogin";
+import Test from "./view/test";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/update" exact component={UpdateUser} />
       <Route path="/newApartment" exact component={AddApatment} />
       <Route path="/login" exact component={UserLogin} />
+      <Route path="/test" exact component={Test} />
     </Router>
   );
 }

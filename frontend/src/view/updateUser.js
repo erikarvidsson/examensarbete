@@ -4,6 +4,7 @@ import axios from 'axios';
 const UpdateUser = () => {
 
   const [username, setUsername] = useState('Name');
+  const [email, setEmail] = useState('Name');
   const [password, setPassword] = useState('Password');
 
   // const user = {
@@ -15,6 +16,7 @@ const UpdateUser = () => {
     e.preventDefault();
     const user = {
       username: username,
+      email: email,
       password: password
     }
 
@@ -31,6 +33,10 @@ const UpdateUser = () => {
         <label>Name</label>
         <br />
         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+        <br />
+        <label>Email</label>
+        <br />
+        <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
         <br />
         <label>Password</label>
         <br />

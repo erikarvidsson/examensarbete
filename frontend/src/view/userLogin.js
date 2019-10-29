@@ -6,6 +6,7 @@ const UpdateUser = () => {
   const [password, setPassword] = useState("Password");
   const [token, setToken] = useState("Password");
 
+
   const onNewUser = e => {
     e.preventDefault();
     const user = {
@@ -16,7 +17,12 @@ const UpdateUser = () => {
     //   .then(res => console.log(res))
 
     axios.post("http://localhost:5000/userLogin/login", user).then(req => {
-      console.log(req);
+      console.log(req.data.username);
+      console.log(req.data.email);
+      document.cookie = `username=${req.data.username}`;
+      document.cookie = `email=${req.data.email}`;
+      document.cookie = "domain=http://localhost:3000/";
+      
       if (req) {
         setToken(req.data);
         return console.log("sucessful signin");

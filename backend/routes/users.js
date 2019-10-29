@@ -19,10 +19,11 @@ router.route('/add').post(async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
   const username = req.body.username;
+  const email = req.body.email;
   const password = hashedPassword
 
 
-  const newUser = new User({ username, password });
+  const newUser = new User({ username, email, password });
 
   newUser.save()
     .then(() => res.json('User added!'))

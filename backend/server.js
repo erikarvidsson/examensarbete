@@ -35,10 +35,14 @@ connection.once("open", () => {
 const userRouter = require("./routes/users");
 const dataRouter = require("./routes/data");
 const userLogin2Router = require("./routes/userLogin");
+const emailServices = require("./routes/emailService");
+// const sendEmail = require("./routes/send-email");
 
 app.use("/users", userRouter);
 app.use("/data", dataRouter);
 app.use("/userLogin", userLogin2Router);
+app.use("/emailServices", emailServices);
+// app.use("/sendEmail", sendEmail);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
