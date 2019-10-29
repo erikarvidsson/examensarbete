@@ -27,10 +27,10 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+// router.set("trust proxy", 1)
 router.use(
   session({
     secret: process.env.SESSION_SECRET,
-    
     resave: true,
     saveUninitialized: true,
     passReqToCallback: true
@@ -55,6 +55,7 @@ router.route("/").get((req, res) => {
 // // Endpoint to login
 router.route("/login").post(passport.authenticate("local"), function(req, res) {
   // console.log(req.user._id);
+  console.log(req.user);
   const user = req.user
   // res.send(user)
   // res.render("/login");
@@ -70,9 +71,9 @@ router.route("/login").post(passport.authenticate("local"), function(req, res) {
       if (err) {
         console.log(err);
       }
-      console.log("Token - " + token)
-      res.cookie('token',token);
-      res.send()
+      // console.log("Token - " + token)
+      // res.cookie('token',token);
+      res.send(user);
     }
   );
 });
