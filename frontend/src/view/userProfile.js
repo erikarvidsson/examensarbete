@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const UpdateUser = () => {
+const UserProfile = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState();
+  const [id, setId] = useState();
 
   // const user = {
   //   usernme: username,
   //   date: date
   // }
+  
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/users/${sessionStorage.getItem("id")}`)
+      .then(res => {
+        setUsername(res.data.username);
+        setEmail(res.data.email);
+        setId(res.data._id);
+      });
+  },[])
+        console.log(id);
+
 
   const onNewUser = e => {
 
@@ -21,18 +33,20 @@ const UpdateUser = () => {
       password: password
     };
 
-    console.log(user);
+    // console.log(user);
+
+    
 
     axios
-      .post("http://localhost:5000/users/add", user, { credentials: "include" })
-      .then(res => {
-        if (res.status === 200) {
-          window.location.href = "/login";
-        }
-      });
+      .post(`http://localhost:5000/users/update/${id}`, user, { credentials: "include" })
+      .then(res => {if(res){
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("email", email);
+        document.cookie = `token=${username} + 1234`;
+        console.log("uppdate sucessful");
+        window.location.href = "/";
+      }});
 
-    if (status === 200) {
-    }
   };
 
   return (
@@ -55,15 +69,7 @@ const UpdateUser = () => {
           onChange={e => setEmail(e.target.value)}
         />
         <br />
-        <label>Password</label>
-        <br />
-        <input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <br />
-        <br />
+
         <div type="submit" onClick={e => onNewUser(e)}>
           Submit
         </div>
@@ -72,4 +78,4 @@ const UpdateUser = () => {
   );
 };
 
-export default UpdateUser;
+export default UserProfile;
