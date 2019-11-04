@@ -64,16 +64,17 @@ router.route("/login").post(passport.authenticate("local"), function(req, res) {
     {user},
     process.env.SESSION_SECRET,
     {
-    algorithm: 'HS256',
-    expiresIn: 30000
+    algorithm: 'HS256'
   },
     (err, token) => {
       if (err) {
         console.log(err);
+      }else{
+        // console.log("Token - " + token)
+        res.cookie('token2',token);
+        res.send(user);
+        res.redirect("/");
       }
-      // console.log("Token - " + token)
-      // res.cookie('token',token);
-      res.send(user);
     }
   );
 });

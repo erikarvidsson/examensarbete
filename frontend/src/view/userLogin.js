@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const UpdateUser = () => {
+const UserLogin = () => {
   const [username, setUsername] = useState("Name");
   const [password, setPassword] = useState("Password");
-  const [token, setToken] = useState("Password");
-
+  const [token, setToken] = useState("");
 
   const onNewUser = e => {
     e.preventDefault();
@@ -13,19 +12,15 @@ const UpdateUser = () => {
       username: username,
       password: password
     };
-    // axios.post(`http://localhost:5000/userLogin/login/${username}`, user)
-    //   .then(res => console.log(res))
 
     axios.post("http://localhost:5000/userLogin/login", user).then(req => {
-      console.log(req.data.username);
-      console.log(req.data.email);
-      document.cookie = `username=${req.data.username}`;
-      document.cookie = `email=${req.data.email}`;
-      document.cookie = "domain=http://localhost:3000/";
-      
       if (req) {
-        setToken(req.data);
-        return console.log("sucessful signin");
+        sessionStorage.setItem("username", req.data.username);
+        sessionStorage.setItem("email", req.data.email);
+        sessionStorage.setItem("id", req.data._id);
+        document.cookie = `token=${req.data.username} + 1234`;
+        console.log("sucessful signin");
+        window.location.href = "/";
       } else {
         return console.log("sigin not woriking");
       }
@@ -62,4 +57,4 @@ const UpdateUser = () => {
   );
 };
 
-export default UpdateUser;
+export default UserLogin;

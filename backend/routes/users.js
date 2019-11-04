@@ -30,4 +30,19 @@ router.route('/add').post(async (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
+router.route("/update/:id").post((req, res) => {
+  User.findById(req.params.id)
+    .then(data => {
+      data.username = req.body.username;
+      data.email = req.body.email;
+      data.date = Date.parse(req.body.lastDate);
+
+      data
+        .save()
+        .then(() => res.json("Data updated"))
+        .catch(err => res.status(400).json("Eroor: " + err));
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
