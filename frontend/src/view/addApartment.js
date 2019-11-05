@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import axios from "axios";
+import FormData from "form-data";
+import axios, { post } from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddApatment = () => {
   const [adress, setAdress] = useState("Street");
   const [description, setDescription] = useState("information");
-  const [img, setImg] = useState({});
+  const [img, setImg] = useState();
   const [lastDate, setLastDate] = useState(new Date());
 
-    console.log(img.name);
   const onAddApartment = e => {
     e.preventDefault();
+
+    console.log(img.name);
     const data = {
+      userName: sessionStorage.getItem("username"),
       adress: adress,
       description: description,
       img: img.name,
@@ -24,12 +27,27 @@ const AddApatment = () => {
     axios
       .post("http://localhost:5000/data/add", data, { credentials: "include" })
       .then(res => console.log(res.data));
-  };
 
+    const imgData = new FormData();
+    imgData.append("filename", img.name);
+    imgData.append("img", img, img.name);
+
+    const config = {
+      headers: {
+        accept: "application/json",
+        "Accept-Language": "en-US,en;q=0.8",
+        "Content-Type": `multipart/form-data; boundary=${imgData._boundary}`
+      }
+    };
+
+    axios
+      .post("http://localhost:5000/data/save", imgData, config)
+      .then(res => console.log(res));
+  };
   return (
     <>
       <h1>Add a new apartment to listing</h1>
-      <form>
+      <form enctype="multipart/formdata">
         <label>Street name</label>
         <br />
         <input
@@ -54,16 +72,10 @@ const AddApatment = () => {
         <br />
         <label>Add images</label>
         <br />
-        {/* <input
-          type="text"
-          value={img}
-          onChange={e => {
-            e.persist();
-            setImg(e.target.value);
-          }}
-        /> */}
         <input
           type="file"
+          name="img"
+          id="img"
           onChange={e => {
             e.persist();
             setImg(e.target.files[0]);
