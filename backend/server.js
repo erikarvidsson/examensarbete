@@ -4,6 +4,7 @@ app = express(),
 server = http.createServer(app);
 const cors = require("cors");
 const mongoose = require("mongoose");
+const multer = require("multer");
 
 require("dotenv").config();
 
@@ -47,3 +48,18 @@ app.use("/emailServices", emailServices);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
+
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(file.filename, 'test' +  file.fieldname + '-' + Date.now())
+  }
+})
+
+
+ 
+// var upload = multer({ storage: storage })
