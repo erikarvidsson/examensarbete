@@ -11,12 +11,12 @@ const NavBar = () => {
       <li>
         <Link to="/">StartPage</Link>
         {loggedin && <>
-          <Link to="/update">Update</Link>
           <Link to="/newApartment">New Apartment</Link>
           <Link to="/logout">Logout</Link>
           </>
         }
         {!loggedin && <>
+          <Link to="/update">New Account</Link>
           <Link to="/login">Login</Link>
         </>}
       </li>

@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    userName: { type: String, required: true },
+    userId: { type: String, required: false },
+    userName: { type: String, required: false },
     adress: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     img: { type: String, required: false },
-    lastDate: { type: Date, required: true }
+    lastDate: { type: Date, required: false }
   },
   {
     timestamps: true
