@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import FormData from "form-data";
-import axios, { post } from "axios";
+import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddApatment = () => {
@@ -15,6 +15,7 @@ const AddApatment = () => {
 
     console.log(img.name);
     const data = {
+      userId: sessionStorage.getItem("id"),
       userName: sessionStorage.getItem("username"),
       adress: adress,
       description: description,
@@ -47,7 +48,7 @@ const AddApatment = () => {
   return (
     <>
       <h1>Add a new apartment to listing</h1>
-      <form enctype="multipart/formdata">
+      <form>
         <label>Street name</label>
         <br />
         <input
