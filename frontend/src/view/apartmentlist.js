@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import FormData from "form-data";
 import axios from "axios";
 import styled from "styled-components";
+import { P, H2, Header } from "../components/typo";
 
 import Modal from "../components/Modal";
 import EdditInput from "../components/EdditInput";
@@ -67,11 +68,20 @@ const Apartmentlist = () => {
   const Img = styled.img`
     height: 100px;
   `;
-  const H2 = styled.h2`
-    font-weight: bold;
-  `;
-  const P = styled.p`
-    font-weight: thin;
+  const DisplayBox = styled.div`
+    height: 100px;
+    display: flex;
+    img {
+      width: 100%;
+      overflow: hidden;
+      object-fit: cover;
+    }
+    .imgBox {
+      width: 40%;
+    }
+    div {
+      width: 60%;
+    }
   `;
 
   return (
@@ -136,9 +146,19 @@ const Apartmentlist = () => {
                   </form>
                 </EdditInput>
               </Modal>
-              <Img src={`http://localhost:5000/${apartment.img}`} alt="" key={apartment._id}/>
-              <H2>{apartment.adress}</H2>
-              <P>{apartment.description}</P>
+              <DisplayBox>
+                <div className="imgBox">
+                  <Img
+                    src={`http://localhost:5000/${apartment.img}`}
+                    alt=""
+                    key={apartment._id}
+                  />
+                </div>
+                <div>
+                  <H2 text={apartment.adress}></H2>
+                  <P text={apartment.description}></P>
+                </div>
+              </DisplayBox>
             </div>
           );
         })}
