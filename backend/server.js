@@ -1,7 +1,7 @@
-const express = require("express"), 
-http = require('http'),
-app = express(),
-server = http.createServer(app);
+const express = require("express"),
+  http = require("http"),
+  app = express(),
+  server = http.createServer(app);
 const cors = require("cors");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -41,33 +41,35 @@ connection.once("open", () => {
   console.log("MongoDB database connection established sucessfully");
 });
 
+// const uploads = require("./uploads");
 const userRouter = require("./routes/users");
 const dataRouter = require("./routes/data");
+const indexRouter = require("./routes/index");
 const userLogin2Router = require("./routes/userLogin");
 const emailServices = require("./routes/emailService");
 // const sendEmail = require("./routes/send-email");
 
 app.use("/users", userRouter);
 app.use("/data", dataRouter);
+app.use("/index", indexRouter);
 app.use("/userLogin", userLogin2Router);
 app.use("/emailServices", emailServices);
-// app.use("/sendEmail", sendEmail);
+
+
+app.use(express.static("uploads"));
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-
 // SET STORAGE
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
+  destination: function(req, file, cb) {
+    cb(null, "uploads");
   },
-  filename: function (req, file, cb) {
-    cb(file.filename, 'test' +  file.fieldname + '-' + Date.now())
+  filename: function(req, file, cb) {
+    cb(file.filename, "test" + file.fieldname + "-" + Date.now());
   }
-})
+});
 
-
- 
 // var upload = multer({ storage: storage })

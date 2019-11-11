@@ -4,6 +4,8 @@ import FormData from "form-data";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
+import Container from "../components/Container";
+
 const AddApatment = () => {
   const [adress, setAdress] = useState("Street");
   const [description, setDescription] = useState("information");
@@ -46,7 +48,7 @@ const AddApatment = () => {
       .then(res => console.log(res));
   };
   return (
-    <>
+    <Container>
       <h1>Add a new apartment to listing</h1>
       <form>
         <label>Street name</label>
@@ -94,7 +96,7 @@ const AddApatment = () => {
         <br />
         <button onClick={e => onAddApartment(e)}>Submit</button>
       </form>
-    </>
+    </Container>
   );
 };
 

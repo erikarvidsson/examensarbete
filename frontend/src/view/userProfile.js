@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import Container from "../components/Container";
+
 const UserProfile = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -50,7 +52,7 @@ const UserProfile = () => {
   };
 
   return (
-    <>
+    <Container>
       <h1>Create a new user</h1>
       <form>
         <label>Name</label>
@@ -74,7 +76,7 @@ const UserProfile = () => {
           Submit
         </div>
       </form>
-    </>
+    </Container>
   );
 };
 

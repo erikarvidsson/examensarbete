@@ -2,29 +2,29 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import FormData from "form-data";
 import axios from "axios";
+import styled from "styled-components";
+import { P, H2, Header } from "../components/typo";
 
 import Modal from "../components/Modal";
-import Text from "../components/Text";
 import EdditInput from "../components/EdditInput";
+import Container from "../components/Container";
 
 const Apartmentlist = () => {
-  const [apartment, setApartment] = useState();
   const [apartments, setApartments] = useState([{}]);
   // const [apartmentId, setApartmentId] = useState([{}]);
 
   const [adress, setAdress] = useState();
   const [description, setDescription] = useState();
-  const [img, setImg] = useState(false);
+  const [img, setImg] = useState("false");
   const [lastDate, setLastDate] = useState(new Date());
-  // const [data, setData] = useState({});
+
+  const username = sessionStorage.getItem("username");
 
   useEffect(() => {
     axios.get(`http://localhost:5000/data/`).then(res => {
       setApartments(res.data);
-      // console.log(apartments)
     });
   }, []);
-
 
   const data = {
     adress: adress,
@@ -33,12 +33,8 @@ const Apartmentlist = () => {
     lastDate: lastDate
   };
 
-
   const onUppdateApartment = e => {
     e.preventDefault();
-
-
-    console.log(data)
 
     let apartmentId = sessionStorage.getItem("apartmentId");
 
@@ -51,18 +47,57 @@ const Apartmentlist = () => {
           console.log("uppdate sucessful");
         }
       });
+
+    const imgData = new FormData();
+    imgData.append("filename", img.name);
+    imgData.append("img", img, img.name);
+
+    const config = {
+      headers: {
+        accept: "application/json",
+        "Accept-Language": "en-US,en;q=0.8",
+        "Content-Type": `multipart/form-data; boundary=${imgData._boundary}`
+      }
+    };
+
+    axios
+      .post("http://localhost:5000/data/save", imgData, config)
+      .then(res => console.log(res));
+    window.location.href = "/apartmentlist";
   };
-  console.log(apartments);
+
+
+  const Img = styled.img`
+    height: 100px;
+  `;
+  const DisplayBox = styled.div`
+    height: 100px;
+    display: flex;
+    img {
+      width: 100%;
+      overflow: hidden;
+      object-fit: cover;
+    }
+    .imgBox {
+      width: 40%;
+    }
+    div {
+      width: 60%;
+    }
+  `;
 
   return (
-    <>
+    <Container>
       {apartments &&
         apartments.map(apartment => {
           return (
-            // <div onClick={() => { setApartmentId(apartment._id);}}>
-            <div  >
-              <Modal>
-                <EdditInput data={data} link={`data/${apartment._id}`} apartmentId={apartment._id}>
+            <div key={apartment._id}>
+              {username && <Modal>
+                <EdditInput
+                  data={data}
+                  link={`data/${apartment._id}`}
+                  apartmentId={apartment._id}
+                >
                   <form>
                     <label>Street name</label>
                     <br />
@@ -112,13 +147,24 @@ const Apartmentlist = () => {
                     <button onClick={e => onUppdateApartment(e)}>Submit</button>
                   </form>
                 </EdditInput>
-              </Modal>
-              <h2>{apartment.adress}</h2>
-              <h2>{apartment.description}</h2>
+              </Modal>}
+              <DisplayBox>
+                <div className="imgBox">
+                  <Img
+                    src={`http://localhost:5000/${apartment.img}`}
+                    alt=""
+                    key={apartment._id}
+                  />
+                </div>
+                <div>
+                  <H2 text={apartment.adress}></H2>
+                  <P text={apartment.description}></P>
+                </div>
+              </DisplayBox>
             </div>
           );
         })}
-    </>
+    </Container>
   );
 };
 
