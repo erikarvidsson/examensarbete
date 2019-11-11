@@ -3,16 +3,16 @@ import axios from "axios";
 
 const EdditInput = (props) => {
   const [apartment, setApartment] = useState({})
-  const [adresses] = useState([
-    { id: 1, name: "Dave", age: 50 },
-    { id: 2, name: "Kellie", age: 42 },
-    { id: 3, name: "Max", age: 12 },
-    { id: 4, name: "Jack", age: 12 }
-  ]);
+  // const [adresses] = useState([
+  //   { id: 1, name: "Dave", age: 50 },
+  //   { id: 2, name: "Kellie", age: 42 },
+  //   { id: 3, name: "Max", age: 12 },
+  //   { id: 4, name: "Jack", age: 12 }
+  // ]);
 
-  const [adress, setAdress] = useState("");
-  const [name, setName] = useState("");
-  const [user, setUser] = useState();
+  // const [adress, setAdress] = useState("");
+  // const [name, setName] = useState("");
+  // const [user, setUser] = useState();
 
   if (props.apartmentId){
     sessionStorage.setItem("apartmentId", props.apartmentId);

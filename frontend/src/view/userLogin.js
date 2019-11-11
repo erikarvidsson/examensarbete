@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Container from "../components/Container";
 
 const UserLogin = () => {
   const [username, setUsername] = useState("Name");
@@ -29,7 +30,7 @@ const UserLogin = () => {
   };
 
   return (
-    <>
+    <Container>
       <h1>Login Page </h1>
       <form>
         <h1>{token.username}</h1>
@@ -54,7 +55,7 @@ const UserLogin = () => {
           Login
         </div>
       </form>
-    </>
+    </Container>
   );
 };
 

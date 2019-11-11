@@ -9,41 +9,37 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function(req, file, cb) {
-    cb(null,( Date() + file.originalname).replace(/\s/g, ""));
+    cb(null, (Date() + file.originalname).replace(/\s/g, ""));
   }
 });
 const upload = multer({ storage: storage });
 
-let Data = require("../models/data.models");
+let Index = require("../models/index.models");
 
 router.route("/").get((req, res) => {
-  Data.find()
+  Index.find()
     .then(data => res.json(data))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/add").post((req, res) => {
   const userId = req.body.userId;
-  const userName = req.body.userName;
-  const adress = req.body.adress;
+  const header = req.body.adress;
   const description = req.body.description;
-  const img = (Date() + req.body.img).replace(/\s/g, "");
-  const lastDate = Date.parse(req.body.lastDate);
   console.log(req.body);
 
-  const newData = new Data({
+  const newIndex = new Index({
     userId,
-    userName,
-    adress,
+    header,
     description,
-    img,
-    lastDate
   });
 
-  newData
+  newIndex
     .save()
     .then(() => res.json("Data added!"))
-    .catch(err => res.status(400).json("Error: " + err + console.log(newData)));
+    .catch(err =>
+      res.status(400).json("Error: " + err + console.log(newIndex))
+    );
 });
 
 router.route("/save").post(upload.single("img"), (req, res, next) => {
@@ -56,27 +52,15 @@ router.route("/save").post(upload.single("img"), (req, res, next) => {
   res.send(file);
 });
 
-router.route('/:id').get((req, res) => {
-  Data.findById(req.params.id)
-  .then(data => res.json(data))
-  .catch(err => res.status(400).json('Error: ' + err));
-});
-
-// router.route('/:id').delete((req, res) => {
-//   Data.findByIdAndDelete(req.params.id)
-//     .then(() => res.json('Data deleted'))
-//     .catch(err => res.status(400).json('Error: ' + err));
-// });
-
 router.route("/fetchImage/:file").get((req, res) => {
   let file = req.params.file;
   let fileLocation = path.join("../uploads/", file);
-  res.send({image: fileLocation});
+  res.send({ image: fileLocation });
   res.sendFile(`${fileLocation}`);
 });
 
 router.route("/update/:id").post((req, res) => {
-  Data.findById(req.params.id)
+  Index.findById(req.params.id)
     .then(data => {
       data.userId = req.body.userId;
       data.userName = req.body.userName;

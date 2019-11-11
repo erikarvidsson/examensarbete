@@ -21,7 +21,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route path="/" exact component={Index} />
-        <Route path="/test" exact component={Test} />
+        {/* <Route path="/test" exact component={Test} /> */}
         {loggedin && (
           <>
             <Route path="/apartmentlist" exact component={Apartmentlist} />
