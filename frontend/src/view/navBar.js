@@ -41,6 +41,7 @@ const NavBar = () => {
           {!loggedin && (
             <>
               <Link to="/update">New Account</Link>
+              <Link to="/apartmentlist">Apartments</Link>
               <div className="leftMenueItem">
                 <Link to="/login">Login</Link>{" "}
               </div>

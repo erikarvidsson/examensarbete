@@ -1,6 +1,5 @@
 const multer = require("multer");
 const router = require("express").Router();
-const nowDate = new Date();
 
 var path = require("path");
 
@@ -9,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function(req, file, cb) {
-    cb(null, (Date() + file.originalname).replace(/\s/g, ""));
+    cb(null, (file.originalname).replace(/\s/g, ""));
   }
 });
 const upload = multer({ storage: storage });
@@ -23,15 +22,17 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const userId = req.body.userId;
-  const header = req.body.adress;
+  const header = req.body.header;
   const description = req.body.description;
+  const img = ('index' + req.body.img).replace(/\s/g, "");
+  const lastDate = Date.parse(req.body.lastDate);
   console.log(req.body);
 
   const newIndex = new Index({
-    userId,
     header,
     description,
+    img,
+    lastDate
   });
 
   newIndex
@@ -62,11 +63,9 @@ router.route("/fetchImage/:file").get((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Index.findById(req.params.id)
     .then(data => {
-      data.userId = req.body.userId;
-      data.userName = req.body.userName;
-      data.adress = req.body.adress;
+      data.header = req.body.header;
       data.description = req.body.description;
-      data.img = (Date() + req.body.img).replace(/\s/g, "");
+      data.img = (req.body.img).replace(/\s/g, "");
       data.lastDate = Date.parse(req.body.lastDate);
 
       data

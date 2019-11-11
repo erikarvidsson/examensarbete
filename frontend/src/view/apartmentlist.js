@@ -18,6 +18,8 @@ const Apartmentlist = () => {
   const [img, setImg] = useState("false");
   const [lastDate, setLastDate] = useState(new Date());
 
+  const username = sessionStorage.getItem("username");
+
   useEffect(() => {
     axios.get(`http://localhost:5000/data/`).then(res => {
       setApartments(res.data);
@@ -90,7 +92,7 @@ const Apartmentlist = () => {
         apartments.map(apartment => {
           return (
             <div key={apartment._id}>
-              <Modal>
+              {username && <Modal>
                 <EdditInput
                   data={data}
                   link={`data/${apartment._id}`}
@@ -105,7 +107,7 @@ const Apartmentlist = () => {
                       placeholder={"New adress"}
                       onChange={e => {
                         e.persist();
-                        setAdress(e.target);
+                        setAdress(e.target.value);
                       }}
                     />
                     <br />
@@ -145,7 +147,7 @@ const Apartmentlist = () => {
                     <button onClick={e => onUppdateApartment(e)}>Submit</button>
                   </form>
                 </EdditInput>
-              </Modal>
+              </Modal>}
               <DisplayBox>
                 <div className="imgBox">
                   <Img

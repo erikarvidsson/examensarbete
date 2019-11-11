@@ -28,12 +28,14 @@ function App() {
             <Route path="/newApartment" exact component={AddApatment} />
             <Route path="/profile" exact component={UserProfile} />
             <Route path="/logout" exact component={UserLogout} />
+            <Route path="/test" exact component={Test} />
           </>
         )}
         {!loggedin && (
           <>
+            <Route path="/apartmentlist" exact component={Apartmentlist} />
             <Route path="/login" exact component={UserLogin} />
-          <Route path="/update" exact component={UpdateUser} />
+            <Route path="/update" exact component={UpdateUser} />
           </>
         )}
         {/* <Route path="*" exact={true}   component={NotFound} /> */}
