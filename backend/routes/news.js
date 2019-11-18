@@ -9,15 +9,15 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function(req, file, cb) {
-    cb(null,( Date() + file.originalname).replace(/\s/g, ""));
+    cb(null, (Date() + file.originalname).replace(/\s/g, ""));
   }
 });
 const upload = multer({ storage: storage });
 
-let Data = require("../models/data.models");
+let News = require("../models/news.models");
 
 router.route("/").get((req, res) => {
-  Data.find()
+  News.find()
     .then(data => res.json(data))
     .catch(err => res.status(400).json("Error: " + err));
 });
@@ -25,27 +25,27 @@ router.route("/").get((req, res) => {
 router.route("/add").post((req, res) => {
   const userId = req.body.userId;
   const userName = req.body.userName;
-  const adress = req.body.adress;
+  const title = req.body.title;
   const description = req.body.description;
   const information = req.body.information;
   const img = (Date() + req.body.img).replace(/\s/g, "");
   const lastDate = Date.parse(req.body.lastDate);
   console.log(req.body);
 
-  const newData = new Data({
+  const newNews = new News({
     userId,
     userName,
-    adress,
+    title,
     description,
     information,
     img,
     lastDate
   });
 
-  newData
+  newNews
     .save()
-    .then(() => res.json("Data added!"))
-    .catch(err => res.status(400).json("Error: " + err + console.log(newData)));
+    .then(() => res.json("News added!"))
+    .catch(err => res.status(400).json("Error: " + err + console.log(newNews)));
 });
 
 router.route("/save").post(upload.single("img"), (req, res, next) => {
@@ -58,10 +58,10 @@ router.route("/save").post(upload.single("img"), (req, res, next) => {
   res.send(file);
 });
 
-router.route('/:id').get((req, res) => {
-  Data.findById(req.params.id)
-  .then(data => res.json(data))
-  .catch(err => res.status(400).json('Error: ' + err));
+router.route("/:id").get((req, res) => {
+  News.findById(req.params.id)
+    .then(data => res.json(data))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 // router.route('/:id').delete((req, res) => {
@@ -73,22 +73,19 @@ router.route('/:id').get((req, res) => {
 router.route("/fetchImage/:file").get((req, res) => {
   let file = req.params.file;
   let fileLocation = path.join("../uploads/", file);
-  res.send({image: fileLocation});
+  res.send({ image: fileLocation });
   res.sendFile(`${fileLocation}`);
 });
 
 router.route("/update/:id").post((req, res) => {
-  Data.findById(req.params.id)
+  News.findById(req.params.id)
     .then(data => {
       data.userId = req.body.userId;
       data.userName = req.body.userName;
-      data.adress = req.body.adress;
+      data.title = req.body.title;
       data.description = req.body.description;
       data.information = req.body.information;
       data.img = (Date() + req.body.img).replace(/\s/g, "");
-
-      data.img = `${req.body.img === 'img' ? '' : (Date() + req.body.img).replace(/\s/g, "") }`;
-      
       data.lastDate = Date.parse(req.body.lastDate);
 
       data

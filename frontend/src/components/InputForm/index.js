@@ -1,29 +1,38 @@
 import React, { useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
+
+import { Textarea, Input, Button } from "../Input";
+import { Header } from "../typo";
+
+const Select = styled.select`
+  border: 0;
+  height: 50px;
+  width: 328px;
+  border-radius: 25px;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  padding-left: 12px;
+  padding-right: 12px;
+`;
 
 const InputForm = () => {
   const [adresses] = useState([
-    { id: 1, name: "Dave", age: 50 },
-    { id: 2, name: "Kellie", age: 42 },
-    { id: 3, name: "Max", age: 12 },
-    { id: 4, name: "Jack", age: 12 }
+    { id: 1, name: "Välj adress    ->" },
+    { id: 2, name: "Kellbbergsgatan 4B" },
+    { id: 3, name: "MaxGatan 45c" },
+    { id: 4, name: "Jackjacobbstorg 2" },
+    { id: 5, name: "Björksgatan 35A" }
   ]);
 
   const [name, setName] = useState("");
   const [adress, setAdress] = useState("");
+  const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
   const [date] = useState(new Date());
 
-  function getCook(cookiename) {
-    // Get name followed by anything except a semicolon
-    var cookiestring = RegExp("" + cookiename + "[^;]+").exec(document.cookie);
-    // Return everything after the equal sign, or an empty string if the cookie name not found
-    return decodeURIComponent(
-      !!cookiestring ? cookiestring.toString().replace(/^[^=]+./, "") : ""
-    );
-  }
+  // var email = sessionStorage.getItem("email");
 
-  var email = getCook("email");
+  console.log(email);
 
   const onNewUser = e => {
     e.preventDefault();
@@ -42,11 +51,13 @@ const InputForm = () => {
 
   return (
     <>
-      <h2> Hello</h2>
+      <Header text="Serviceanmälan" marginLeft="0"> </Header>
       <form>
-        <h2>Hejs</h2>
-        Name:
-        <input
+
+        <br />
+        <Input
+        paddingTop="0"
+          placeholder="Ditt namn"
           type="text"
           value={name}
           onChange={e => {
@@ -55,28 +66,47 @@ const InputForm = () => {
           }}
         />
         <br />
-        Adress:
-        <input
+        <br />
+        <br />
+        <Input
+          paddingTop="0"
           type="text"
-          value={adress}
+          placeholder="Lägenhets nummer"
+          // value={adress}
           onChange={e => {
             e.persist();
             setAdress(e.target.value);
           }}
         />
         <br />
-        Description:
-        <input
+        <br />
+        <br />
+        <Input
+          paddingTop="0"
           type="text"
-          value={description}
+          placeholder="Telefonummer"
+          // value={adress}
+          onChange={e => {
+            e.persist();
+            setEmail(e.target.value);
+          }}
+        />
+        <br />
+        <br />
+        <br />
+        <Textarea
+          height="150px"
+          type="text"
+          placeholder="Beskriv ditt problem"
+          // value={description}
           onChange={e => {
             e.persist();
             setDescription(e.target.value);
           }}
         />
         <br />
-        <select>
-          <option value="select adress" />
+        <Select>
+          {/* <option selected="selected" /> */}
           {adresses.map(adress => {
             // console.log(adress);
             return (
@@ -85,11 +115,14 @@ const InputForm = () => {
               </option>
             );
           })}
-        </select>
+        </Select>
       </form>
-      <div type="submit" onClick={e => onNewUser(e)}>
-        CLICK ME
-      </div>
+      <br />
+      <Button
+        text="Skicka Serviceanmälan"
+        type="submit"
+        onClick={e => onNewUser(e)}
+      ></Button>
     </>
   );
 };

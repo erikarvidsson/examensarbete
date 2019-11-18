@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 
 const passport = require("passport");
 const session = require("express-session");
-const flash = require("express-flash");
 
 require("../passport.config")(passport);
 
@@ -72,7 +71,7 @@ router.route("/login").post(passport.authenticate("local"), function(req, res) {
       }else{
         // console.log("Token - " + token)
         res.cookie('token2',token);
-        res.send(user);
+        res.send({user, token});
         res.redirect("/");
       }
     }

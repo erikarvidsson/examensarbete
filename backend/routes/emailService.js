@@ -11,14 +11,14 @@ router.route("/").get((req, res) => {
 
 router.route("/add").post((req, res) => {
   const name = req.body.name;
-  const email = req.body.email;
+  const phone = req.body.email;
   const adress = req.body.adress;
   const description = req.body.description;
   const date = Date.parse(req.body.date);
 
   const newEmailService = new EmailService({
     name,
-    email,
+    phone,
     adress,
     description,
     date

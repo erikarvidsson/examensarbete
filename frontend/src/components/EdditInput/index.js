@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Header } from "../typo";
 
 const EdditInput = (props) => {
   const [apartment, setApartment] = useState({})
@@ -49,7 +50,6 @@ const EdditInput = (props) => {
 
   return (
     <>
-      <h2> Change input data</h2>
       {props.children}
     </>
   );

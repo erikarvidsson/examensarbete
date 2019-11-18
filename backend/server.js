@@ -44,6 +44,8 @@ connection.once("open", () => {
 // const uploads = require("./uploads");
 const userRouter = require("./routes/users");
 const dataRouter = require("./routes/data");
+const newsRouter = require("./routes/news");
+const SApt = require("./routes/searchApartment");
 const indexRouter = require("./routes/index");
 const userLogin2Router = require("./routes/userLogin");
 const emailServices = require("./routes/emailService");
@@ -51,6 +53,8 @@ const emailServices = require("./routes/emailService");
 
 app.use("/users", userRouter);
 app.use("/data", dataRouter);
+app.use("/news", newsRouter);
+app.use("/SApt", SApt);
 app.use("/index", indexRouter);
 app.use("/userLogin", userLogin2Router);
 app.use("/emailServices", emailServices);

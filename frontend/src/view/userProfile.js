@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import { Input, Button } from "../components/Input";
+import { Header } from "../components/typo";
 import Container from "../components/Container";
 
 const UserProfile = () => {
@@ -53,11 +55,12 @@ const UserProfile = () => {
 
   return (
     <Container>
-      <h1>Create a new user</h1>
+      <Header text="Uppdater användare info" />
       <form>
         <label>Name</label>
         <br />
-        <input
+        <Input
+          paddingTop="0"
           type="text"
           value={username}
           onChange={e => setUsername(e.target.value)}
@@ -65,16 +68,16 @@ const UserProfile = () => {
         <br />
         <label>Email</label>
         <br />
-        <input
+        <Input
+          paddingTop="0"
           type="text"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
         <br />
+        <br />
 
-        <div type="submit" onClick={e => onNewUser(e)}>
-          Submit
-        </div>
+        <Button text="Uppdatera" type="submit" onClick={e => onNewUser(e)} />
       </form>
     </Container>
   );

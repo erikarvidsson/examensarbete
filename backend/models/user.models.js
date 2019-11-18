@@ -16,6 +16,10 @@ const userSchema = new Schema({
     unique: true,
     minlength: 3
   },
+  admin: {
+    type: Boolean,
+    required: false,
+  },
   password: { type: String, required: true, minlength: 3 }  
 },{
   timestamps: true,

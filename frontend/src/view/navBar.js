@@ -4,24 +4,33 @@ import styled from "styled-components";
 
 const Nav = styled.div`
   position: fixed;
-  background-color: white;
+  background-color: #1c4c8a;
   width: 100vw;
-  height: 50px;
+  height: 60px;
   left: 0;
+  color: white;
+
+  ul {
+    position: fixed;
+    list-style-type: none;
+    width: 93%;
+    top: 16px;
+  }
 
   a {
     margin-left: 20px;
     margin-right: 20px;
   }
-  .leftMenueItem{
+  .leftMenueItem {
     position: fixed;
-    top: 15px;
-      right: 0;
+    top: 22px;
+    right: 0;
   }
 `;
 
 const NavBar = () => {
   const loggedin = document.cookie;
+  const admin = sessionStorage.getItem("admin");
 
   console.log(loggedin);
   return (
@@ -31,17 +40,22 @@ const NavBar = () => {
           <Link to="/">StartPage</Link>
           {loggedin && (
             <>
-              <Link to="/newApartment">New Apartment</Link>
               <Link to="/apartmentlist">Apartments</Link>
+              <Link to="/serviceNotification">Service Notification</Link>
               <div className="leftMenueItem">
                 <Link to="/logout">Logout</Link>
               </div>
             </>
           )}
+          {loggedin && admin && (
+            <>
+              <Link to="/newApartment">New Apartment</Link>
+            </>
+          )}
           {!loggedin && (
             <>
-              <Link to="/update">New Account</Link>
               <Link to="/apartmentlist">Apartments</Link>
+              <Link to="/update">New Account</Link>
               <div className="leftMenueItem">
                 <Link to="/login">Login</Link>{" "}
               </div>
