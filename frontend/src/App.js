@@ -3,42 +3,62 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Index from "./view/index";
-import NavBar from "./view/navBar";
+// import NavBar from "./view/navBar";
+import NavBarBurger from "./view/navBarBurger";
 import UpdateUser from "./view/updateUser";
+import AddAdmin from "./view/addAdmin";
 import Apartmentlist from "./view/apartmentlist";
-import AddApatment from "./view/addApartment";
+import AddApartment from "./view/addApartment";
+import AddNews from "./view/addNews";
+import SearcedApartments from "./view/searcedApartments";
+import ServiceNotification from "./view/serviceNotification";
 import UserProfile from "./view/userProfile";
 import UserLogin from "./view/userLogin";
 import UserLogout from "./view/userLogout";
 import Test from "./view/test";
-import NotFound from "./view/notFound";
+// import NotFound from "./view/notFound";
 
 function App() {
   const loggedin = document.cookie;
+  const admin = sessionStorage.getItem("admin");
 
   return (
     <Router>
-      <NavBar />
+      <NavBarBurger />
       <Switch>
-        <Route path="/" exact component={Index} />
-        {/* <Route path="/test" exact component={Test} /> */}
-        {loggedin && (
-          <>
-            <Route path="/apartmentlist" exact component={Apartmentlist} />
-            <Route path="/newApartment" exact component={AddApatment} />
-            <Route path="/profile" exact component={UserProfile} />
-            <Route path="/logout" exact component={UserLogout} />
-            <Route path="/test" exact component={Test} />
-          </>
-        )}
-        {!loggedin && (
-          <>
-            <Route path="/apartmentlist" exact component={Apartmentlist} />
+        <>
+          <Route path="/" exact component={Index} />
+          <Route path="/apartmentlist" exact component={Apartmentlist} />
+          {!admin && !loggedin && (
             <Route path="/login" exact component={UserLogin} />
-            <Route path="/update" exact component={UpdateUser} />
-          </>
-        )}
-        {/* <Route path="*" exact={true}   component={NotFound} /> */}
+          )}
+          {loggedin && !admin && (
+            <>
+              {/* <Route path="/apartmentlist" exact component={Apartmentlist} /> */}
+              <Route path="/profile" exact component={UserProfile} />
+              <Route path="/logout" exact component={UserLogout} />
+              <Route path="/sapts" exact component={SearcedApartments} />
+              <Route
+                path="/serviceNotification"
+                component={ServiceNotification}
+              />
+            </>
+          )}
+          {admin && (
+            <>
+              <Route path="/addAdmin" exact component={AddAdmin} />
+              <Route
+                path="/serviceNotification"
+                component={ServiceNotification}
+              />
+              <Route path="/newApartment" exact component={AddApartment} />
+              <Route path="/addNews" exact component={AddNews} />
+              {/* <Route path="/apartmentlist" exact component={Apartmentlist} /> */}
+              <Route path="/update" exact component={UpdateUser} />
+              <Route path="/logout" exact component={UserLogout} />
+            </>
+          )}
+        </>
       </Switch>
     </Router>
   );

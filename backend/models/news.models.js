@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -6,7 +6,7 @@ const userSchema = new Schema(
   {
     userId: { type: String, required: false },
     userName: { type: String, required: false },
-    adress: { type: String, required: true },
+    title: { type: String, required: true },
     description: { type: String, required: false },
     information: { type: String, required: false },
     img: { type: String, required: false },
@@ -17,6 +17,6 @@ const userSchema = new Schema(
   }
 );
 
-const Data = mongoose.model('Data', userSchema);
+const News = mongoose.model("News", userSchema);
 
-module.exports = Data;
+module.exports = News;

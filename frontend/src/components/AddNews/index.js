@@ -5,14 +5,13 @@ import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 
-import Container from "../components/Container";
-import { Textarea, Button } from "../components/Input";
-import { H2, Header } from "../components/typo";
+// import { Teaxarea } from "../Input";
+import { Textarea, Button } from "../Input";
+import InputForm from "../InputForm";
 
-const FormBox = styled.form`
+const NewsContainer = styled.div`
   .inputfile {
     display: none;
-
   }
   .inputfileLabel {
     height: 51px;
@@ -23,15 +22,13 @@ const FormBox = styled.form`
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
     cursor: pointer;
   }
+`;
+const FormBox = styled.form`
 
-  /* .inputfileLabel:focus,
-  .inputfileLabel:hover {
-    background-color: red;
-  } */
 `;
 
-const AddApatment = () => {
-  const [adress, setAdress] = useState("Street");
+const AddNews = () => {
+  const [title, setTitle] = useState("Street");
   const [description, setDescription] = useState("information");
   const [information, setInformation] = useState("information");
   const [img, setImg] = useState();
@@ -44,7 +41,7 @@ const AddApatment = () => {
     const data = {
       userId: sessionStorage.getItem("id"),
       userName: sessionStorage.getItem("username"),
-      adress: adress,
+      title: title,
       description: description,
       information: information,
       img: img.name,
@@ -54,7 +51,7 @@ const AddApatment = () => {
     console.log(data);
 
     axios
-      .post("http://localhost:5000/data/add", data, { credentials: "include" })
+      .post("http://localhost:5000/news/add", data, { credentials: "include" })
       .then(res => console.log(res.data));
 
     const imgData = new FormData();
@@ -70,30 +67,29 @@ const AddApatment = () => {
     };
 
     axios
-      .post("http://localhost:5000/data/save", imgData, config)
+      .post("http://localhost:5000/news/save", imgData, config)
       .then(res => console.log(res));
   };
   return (
-    <Container>
-      <Header text="Dela en ny lägenhet" marginLeft="0"></Header>
+    <NewsContainer>
       <FormBox>
+        {/* <label>Street name</label> */}
         <br />
-        <label>{/* <H2>Adress</H2> */}</label>
         <Textarea
           type="text"
-          placeholder="Adress"
-          // value={adress}
+          placeholder="Titel"
+          // value={title}
           onChange={e => {
             e.persist();
-            setAdress(e.target.value);
+            setTitle(e.target.value);
           }}
         />
         <br />
-        {/* <label>Kort beskrivning</label> */}
+        {/* <label>Short description</label> */}
         <br />
         <Textarea
           type="text"
-          placeholder="Kort beskrivning"
+          placeholder="Ingress"
           // value={description}
           onChange={e => {
             e.persist();
@@ -102,12 +98,12 @@ const AddApatment = () => {
         />
         <br />
 
-        {/* <label>Information</label> */}
+        {/* <label>Information</label>s */}
         <br />
         <Textarea
-          height="150px"
-          type="text"
           placeholder="Information"
+          height="140px"
+          type="text"
           // value={information}
           onChange={e => {
             e.persist();
@@ -130,24 +126,16 @@ const AddApatment = () => {
             }}
           />
         </label>
-        <br />
-        <label>Last date to apply </label>
-        <br />
-        <DatePicker
-          selected={lastDate}
-          onChange={setLastDate}
-          cd
-          adjustDateOnChange
-        />
+        <br />  
         <br />
         <Button
-          text="Lägg till lägenhet"
+          text="Lägg till nyhet"
           type="submit"
           onClick={e => onAddApartment(e)}
-        />
+        ></Button>
       </FormBox>
-    </Container>
+    </NewsContainer>
   );
 };
 
-export default AddApatment;
+export default AddNews;
