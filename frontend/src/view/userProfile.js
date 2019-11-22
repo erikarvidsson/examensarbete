@@ -25,7 +25,6 @@ const UserProfile = () => {
         setId(res.data._id);
       });
   },[])
-        console.log(id);
 
 
   const onNewUser = e => {

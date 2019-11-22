@@ -10,7 +10,7 @@ import AddAdmin from "./view/addAdmin";
 import Apartmentlist from "./view/apartmentlist";
 import AddApartment from "./view/addApartment";
 import AddNews from "./view/addNews";
-import SearcedApartments from "./view/searcedApartments";
+import SearchedApartments from "./view/searchedApartments";
 import ServiceNotification from "./view/serviceNotification";
 import UserProfile from "./view/userProfile";
 import UserLogin from "./view/userLogin";
@@ -29,6 +29,7 @@ function App() {
         <>
           <Route path="/" exact component={Index} />
           <Route path="/apartmentlist" exact component={Apartmentlist} />
+          <Route path="/update" exact component={UpdateUser} />
           {!admin && !loggedin && (
             <Route path="/login" exact component={UserLogin} />
           )}
@@ -37,7 +38,7 @@ function App() {
               {/* <Route path="/apartmentlist" exact component={Apartmentlist} /> */}
               <Route path="/profile" exact component={UserProfile} />
               <Route path="/logout" exact component={UserLogout} />
-              <Route path="/sapts" exact component={SearcedApartments} />
+              <Route path="/sapts" exact component={SearchedApartments} />
               <Route
                 path="/serviceNotification"
                 component={ServiceNotification}
@@ -54,7 +55,6 @@ function App() {
               <Route path="/newApartment" exact component={AddApartment} />
               <Route path="/addNews" exact component={AddNews} />
               {/* <Route path="/apartmentlist" exact component={Apartmentlist} /> */}
-              <Route path="/update" exact component={UpdateUser} />
               <Route path="/logout" exact component={UserLogout} />
             </>
           )}

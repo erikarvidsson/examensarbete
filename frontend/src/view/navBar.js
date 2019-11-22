@@ -32,7 +32,6 @@ const NavBar = () => {
   const loggedin = document.cookie;
   const admin = sessionStorage.getItem("admin");
 
-  console.log(loggedin);
   return (
     <Nav>
       <ul>

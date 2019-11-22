@@ -22,7 +22,6 @@ const ServiceNotification = () => {
   const onAddApartment = e => {
     e.preventDefault();
 
-    console.log(img.name);
     const data = {
       userId: sessionStorage.getItem("id"),
       userName: sessionStorage.getItem("username"),
@@ -32,8 +31,6 @@ const ServiceNotification = () => {
       img: img.name,
       lastDate: lastDate
     };
-
-    console.log(data);
 
     axios
       .post("http://localhost:5000/data/add", data, { credentials: "include" })

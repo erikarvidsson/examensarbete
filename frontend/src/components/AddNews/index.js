@@ -68,7 +68,10 @@ const AddNews = () => {
 
     axios
       .post("http://localhost:5000/news/save", imgData, config)
-      .then(res => console.log(res));
+      .then(res => console.log(res))
+      .then(() => {
+        window.location.href = "/";
+      });
   };
   return (
     <NewsContainer>

@@ -39,10 +39,11 @@ const ModalBox = styled.div`
   .button {
     /* position: ${props => props.position || "fixed"}; */
     position: relative;
-    width: 100vw; 
+    width: ${props => props.buttonWidth || '100vw'}; 
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 40px;
+    /* margin-top: 10px; */
+    margin-top: ${props => props.buttonMT || '40px'};
+    margin-bottom: ${props => props.buttonMB || '40px'};
     /* color: #ccc; */
 
     h1 {

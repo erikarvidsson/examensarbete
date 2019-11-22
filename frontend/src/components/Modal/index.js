@@ -13,7 +13,8 @@ const ModalBox = styled.div`
     width: ${props => props.width || "100vw"};
     height: ${props => props.height || "100vh"};
     /* margin-left: 10vw; */
-    border-radius: 25px;
+    /* border-radius: 25px; */
+    padding-top: ${props => props.paddingTop}
   }
   .openClose {
     position: ${props => props.position || "relative"};

@@ -68,7 +68,7 @@ const DisplayBox = styled.div`
 const ContentBox = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 100%;
+  height: 94%;
 `;
 
 const Apartmentlist = () => {
@@ -88,23 +88,21 @@ const Apartmentlist = () => {
   const user = sessionStorage.getItem("id");
   const admin = sessionStorage.getItem("admin");
 
-  console.log(noSearch);
-
   useEffect(() => {
-    if (apartments.length === 1) {
+    // if (apartments) {
       axios.get(`http://localhost:5000/data/`).then(res => {
         setApartments(res.data);
       });
-    }
+    // }
 
     axios.get(`http://localhost:5000/SApt/`).then(res => {
       setSearch(res.data);
     });
   }, []);
 
-  useEffect(() => {
-    haveSearchAppartment();
-  }, []);
+  // useEffect(() => {
+  //   haveSearchAppartment();
+  // }, []);
 
 
   const data = {
@@ -142,6 +140,9 @@ const Apartmentlist = () => {
         if (res) {
           console.log("uppdate sucessful");
         }
+      })
+      .then(() => {
+        window.location.href = "/apartmentlist";
       });
 
     if (img && img !== noImg) {
@@ -159,25 +160,13 @@ const Apartmentlist = () => {
 
       axios
         .post("http://localhost:5000/data/save", imgData, config)
-        .then(res => console.log(res));
-      window.location.href = "/apartmentlist";
+        .then(res => console.log(res))
+        .then(() => {window.location.href = "/apartmentlist"})
     } else {
       // window.location.href = "/apartmentlist";
     }
   };
 
-  const haveSearchAppartment = dataId => {
-    axios.get(`http://localhost:5000/SApt/${dataId}`).then(res => {
-      if (res.data && res.data.userId === user) {
-        // setNoSearch(noSearch => [...noSearch, res.data.dataId]);
-        console.log(res.data);
-        return true;
-      } else {
-        return false;
-      }
-    });
-    // .then(res => setNoSearch([...noSearch, res.data]));
-  };
 
   const searchApartment = dataId => {
     const search = {
@@ -187,8 +176,8 @@ const Apartmentlist = () => {
 
     axios
       .post("http://localhost:5000/SApt/add", search)
-      .then(res => console.log(res));
-    // window.location.href = "/apartmentlist";
+      .then(res => console.log(res))
+      .then(() => {window.location.href = "/apartmentlist"});
   };
 
   return (
@@ -197,7 +186,7 @@ const Apartmentlist = () => {
       {apartments &&
         apartments
           .map(apartment => {
-            haveSearchAppartment(apartment._id);
+            // haveSearchAppartment(apartment._id);
             return (
               <Wrapper key={apartment._id}>
                 <DisplayBox>
@@ -245,6 +234,7 @@ const Apartmentlist = () => {
                       textAlign="center"
                       marginLeft="0"
                       marginRight="0"
+                      fontSize="38px"
                     ></Header>
                     <P
                       fontWeight="bold"
@@ -365,7 +355,7 @@ const Apartmentlist = () => {
                     )}
                     {user && !admin && (
                       <>
-                        {console.log(haveSearchAppartment(apartment._id))}
+                        {/* {console.log(haveSearchAppartment(apartment._id))} */}
                         <Button
                           text="Sök Lägenheten"
                           onClick={() => searchApartment(apartment._id)}

@@ -3,7 +3,7 @@ import FormData from "form-data";
 import axios from "axios";
 import styled from "styled-components";
 import { Header, H2, H3 } from "../typo";
-import Modal from "../Modal";
+import Modal2 from "../Modal2";
 
 // import Modal from "../components/Modal";
 // import EdditInput from "../components/EdditInput";
@@ -14,7 +14,7 @@ const NewsBox = styled.div`
   /* width: 400px; */
   flex-shrink: 0;
   height: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 44px;
   img {
     width: 100%;
     height: 150px;
@@ -142,15 +142,18 @@ const TopNews = () => {
                     fontSize="30px;"
                     marginLeft="0"
                   ></H2>
-                  <H3 text={news.description} marginLeft="5vw"></H3>
-                  <Modal
+                  <H3 text={news.description} marginLeft="0" textAlign="center"></H3>
+                  <Modal2
                     marginTop="10px;"
+                    buttonMT="30px"
                     positionContent="fixed"
                     position="relative"
                     top="0"
                     left="0"
-                    width="100vw"
+                    buttonWidth="100%"
+                    buttonMB="0"
                     height="100vh"
+                    text="Läs mer"
                   >
                     <OpenNewsBox>
                       <img
@@ -165,6 +168,9 @@ const TopNews = () => {
                       ></H2>
                       <H3
                         text={news.description}
+                        fontWeight="bold"
+                        fontSize="26px"
+                        textAlign="center"
                         marginLeft="0"
                         marginRight="0"
                         paddingLeft="10px"
@@ -178,7 +184,7 @@ const TopNews = () => {
                         paddingRight="10px"
                       ></H3>
                     </OpenNewsBox>
-                  </Modal>
+                  </Modal2>
                 </NewsBox>
               </>
             );

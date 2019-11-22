@@ -111,11 +111,14 @@ const NavBarBurger = () => {
         <div />
       </StyledBurger>
       <StyledMenu open={open}>
-        <Link to="/" onClick={() => setOpen(!open)}>
-          Hem
-        </Link>
         {!admin && loggedin && (
           <>
+            <Link to="/" onClick={() => setOpen(!open)}>
+              Hem
+            </Link>
+            <Link to="/sapts" onClick={() => setOpen(!open)}>
+              Sökta lägeneter
+            </Link>
             <Link to="/apartmentlist" onClick={() => setOpen(!open)}>
               Tillgängliga lägeneter
             </Link>
@@ -127,6 +130,9 @@ const NavBarBurger = () => {
         )}
         {admin && (
           <>
+            <Link to="/" onClick={() => setOpen(!open)}>
+              Hem
+            </Link>
             <Link to="/apartmentlist" onClick={() => setOpen(!open)}>
               Tillgängliga lägeneter
             </Link>
@@ -146,17 +152,18 @@ const NavBarBurger = () => {
         )}
         {!loggedin && (
           <>
+            <Link to="/" onClick={() => setOpen(!open)}>
+              Hem
+            </Link>
             <Link to="/apartmentlist" onClick={() => setOpen(!open)}>
-              Apartments
+              Tillgängliga lägeneter
             </Link>
             <Link to="/update" onClick={() => setOpen(!open)}>
-              New Account
+              Nytt konto
             </Link>
-            <div className="leftMenueItem">
-              <Link to="/login" onClick={() => setOpen(!open)}>
-                Login
-              </Link>{" "}
-            </div>
+            <Link to="/login" onClick={() => setOpen(!open)}>
+              Logga in
+            </Link>
           </>
         )}
       </StyledMenu>

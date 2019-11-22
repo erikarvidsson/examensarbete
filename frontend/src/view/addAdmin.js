@@ -24,7 +24,6 @@ const AddAdmin = () => {
       password: password
     };
 
-    console.log(user);
 
     axios
       .post("http://localhost:5000/users/addAdmin", user, {

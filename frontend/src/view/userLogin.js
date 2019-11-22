@@ -20,7 +20,6 @@ const UserLogin = () => {
     axios.post("http://localhost:5000/userLogin/login", user).then(req => {
       if (req) {
         // console.log(req.headers.authorization);
-        console.log(req.data.user)
         sessionStorage.setItem("username", req.data.user.username);
         sessionStorage.setItem("email", req.data.user.email);
         sessionStorage.setItem("id", req.data.user._id);

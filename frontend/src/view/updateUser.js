@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import Container from "../components/Container";
-import {Input} from "../components/Input";
+import { Input, Button } from "../components/Input";
 
 const UpdateUser = () => {
   const [username, setUsername] = useState("");
@@ -42,6 +42,7 @@ const UpdateUser = () => {
         <label>Name</label>
         <br />
         <Input
+          paddingTop="0"
           type="text"
           value={username}
           onChange={e => setUsername(e.target.value)}
@@ -50,6 +51,7 @@ const UpdateUser = () => {
         <label>Email</label>
         <br />
         <Input
+          paddingTop="0"
           type="text"
           value={email}
           onChange={e => setEmail(e.target.value)}
@@ -58,15 +60,16 @@ const UpdateUser = () => {
         <label>Password</label>
         <br />
         <Input
+          paddingTop="0"
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
         <br />
         <br />
-        <div type="submit" onClick={e => onNewUser(e)}>
-          Submit
-        </div>
+        <Button text="Skapa konto" type="submit" onClick={e => onNewUser(e)}>
+          
+        </Button>
       </form>
     </Container>
   );

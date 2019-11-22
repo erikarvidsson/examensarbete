@@ -32,8 +32,6 @@ const InputForm = () => {
 
   // var email = sessionStorage.getItem("email");
 
-  console.log(email);
-
   const onNewUser = e => {
     e.preventDefault();
     const data = {
@@ -46,17 +44,21 @@ const InputForm = () => {
 
     axios
       .post("http://localhost:5000/emailServices/add", data)
-      .then(res => console.log(res.data));
+      .then(res => console.log(res.data))
+      .then(() => {
+        window.location.href = "/";
+      });
   };
 
   return (
     <>
-      <Header text="Serviceanmälan" marginLeft="0"> </Header>
+      <Header text="Serviceanmälan" marginLeft="0">
+        {" "}
+      </Header>
       <form>
-
         <br />
         <Input
-        paddingTop="0"
+          paddingTop="0"
           placeholder="Ditt namn"
           type="text"
           value={name}

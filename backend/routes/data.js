@@ -9,7 +9,8 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function(req, file, cb) {
-    cb(null,( Date() + file.originalname).replace(/\s/g, ""));
+    // cb(null,( Date() + file.originalname).replace(/\s/g, ""));
+    cb(null,( file.originalname).replace(/\s/g, ""));
   }
 });
 const upload = multer({ storage: storage });
@@ -28,7 +29,8 @@ router.route("/add").post((req, res) => {
   const adress = req.body.adress;
   const description = req.body.description;
   const information = req.body.information;
-  const img = (Date() + req.body.img).replace(/\s/g, "");
+  // const img = (Date() + req.body.img).replace(/\s/g, "");
+  const img = (req.body.img).replace(/\s/g, "");
   const lastDate = Date.parse(req.body.lastDate);
   console.log(req.body);
 
@@ -85,9 +87,11 @@ router.route("/update/:id").post((req, res) => {
       data.adress = req.body.adress;
       data.description = req.body.description;
       data.information = req.body.information;
-      data.img = (Date() + req.body.img).replace(/\s/g, "");
+      // data.img = (Date() + req.body.img).replace(/\s/g, "");
+      data.img = (req.body.img).replace(/\s/g, "");
 
-      data.img = `${req.body.img === 'img' ? '' : (Date() + req.body.img).replace(/\s/g, "") }`;
+      // data.img = `${req.body.img === 'img' ? '' : (Date() + req.body.img).replace(/\s/g, "") }`;
+      data.img = `${req.body.img === 'img' ? '' : (req.body.img).replace(/\s/g, "") }`;
       
       data.lastDate = Date.parse(req.body.lastDate);
 

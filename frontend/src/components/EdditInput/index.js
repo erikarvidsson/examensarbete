@@ -18,7 +18,7 @@ const EdditInput = (props) => {
   if (props.apartmentId){
     sessionStorage.setItem("apartmentId", props.apartmentId);
   } 
-  console.log(apartment)
+
 
   useEffect(() => {
     axios

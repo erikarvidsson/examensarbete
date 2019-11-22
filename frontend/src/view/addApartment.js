@@ -24,10 +24,6 @@ const FormBox = styled.form`
     cursor: pointer;
   }
 
-  /* .inputfileLabel:focus,
-  .inputfileLabel:hover {
-    background-color: red;
-  } */
 `;
 
 const AddApatment = () => {
@@ -40,7 +36,6 @@ const AddApatment = () => {
   const onAddApartment = e => {
     e.preventDefault();
 
-    console.log(img.name);
     const data = {
       userId: sessionStorage.getItem("id"),
       userName: sessionStorage.getItem("username"),
@@ -50,8 +45,6 @@ const AddApatment = () => {
       img: img.name,
       lastDate: lastDate
     };
-
-    console.log(data);
 
     axios
       .post("http://localhost:5000/data/add", data, { credentials: "include" })
@@ -72,6 +65,7 @@ const AddApatment = () => {
     axios
       .post("http://localhost:5000/data/save", imgData, config)
       .then(res => console.log(res));
+      window.location.href = "/apartmentlist";
   };
   return (
     <Container>
@@ -131,7 +125,7 @@ const AddApatment = () => {
           />
         </label>
         <br />
-        <label>Last date to apply </label>
+        <label>Senaste ansökningsdagen</label>
         <br />
         <DatePicker
           selected={lastDate}

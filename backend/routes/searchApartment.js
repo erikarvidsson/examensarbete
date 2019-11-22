@@ -45,10 +45,10 @@ router.route("/:dataId").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route('/:id').delete((req, res) => {
-  Data.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Data deleted'))
-    .catch(err => res.status(400).json('Error: ' + err));
+router.route("/:dataId").delete((req, res) => {
+  SApt.deleteOne({ dataId: req.params.dataId })
+    .then(() => res.json("Data deleted"))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 

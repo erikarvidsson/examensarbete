@@ -63,9 +63,6 @@ const Index = () => {
   const [indexData, setIndexData] = useState();
   const [lastDate, setLastDate] = useState(new Date());
 
-  console.log(header);
-  console.log(text);
-  console.log(img);
   useEffect(() => {
     axios.get(`http://localhost:5000/index/`).then(res => {
       setIndexId(res.data[0]._id);
@@ -111,8 +108,8 @@ const Index = () => {
 
       axios
         .post("http://localhost:5000/index/save", imgData, config)
-        .then(res => console.log(res));
-      window.location.href = "/";
+        .then(res => console.log(res))
+        .then(() => {window.location.href = "/"});
     }
   };
 
@@ -126,7 +123,7 @@ const Index = () => {
       </ImgDiv>
       <Container marginTop="10px">
         {username && admin && (
-          <Modal position="absolute">
+          <Modal position="absolute" paddingTop="40vh">
             <form>
               <br />
               <br />
@@ -153,8 +150,7 @@ const Index = () => {
                 text="Uppdatera"
                 type="submit"
                 onClick={e => onUppdateIndex(e)}
-              >
-              </Button>
+              ></Button>
             </form>
           </Modal>
         )}
@@ -166,7 +162,7 @@ const Index = () => {
           width="100%"
         ></H2>
         {username && admin && (
-          <Modal position="absolute">
+          <Modal position="absolute" paddingTop="40vh">
             <form>
               <br />
               <label>Change header text</label>
@@ -201,7 +197,7 @@ const Index = () => {
           marginLeft="12%"
         ></P>
         {username && admin && (
-          <Modal position="absolute">
+          <Modal position="absolute" paddingTop="40vh">
             <form>
               <br />
               <br />
